@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  wbd-php-app:
+    extends:
+      file: ../WBD_PHP_App/docker-compose.yml
+      service: wbd-php-app
+    networks:
+      - wbd-2-network
+
+  wbd-php-db:
+    extends:
+      file: ../WBD_PHP_App/docker-compose.yml
+      service: wbd-php-db
+    networks:
+      - wbd-2-network
+    
+  wbd-spa-client:
+    extends:
+      file: ../WBD_SPA_Client/docker-compose.yml
+      service: wbd-spa-client
+    networks:
+      - wbd-2-network
+    
+  wbd-rest-service:
+    extends:
+      file: ../WBD_REST_Service/docker-compose.yml
+      service: wbd-rest-service
+    networks:
+      - wbd-2-network
+
+  wbd-rest-db:
+    extends:
+      file: ../WBD_REST_Service/docker-compose.yml
+      service: wbd-rest-db
+    networks:
+      - wbd-2-network
+  
+  wbd-adminer:
+    container_name: wbd-adminer
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+networks:
+  wbd-2-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
