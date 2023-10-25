@@ -35,6 +35,20 @@ services:
       service: wbd-rest-db
     networks:
       - wbd-2-network
+
+  wbd-soap-service:
+    extends:
+      file: ../WBD_SOAP_Service/docker-compose.yml
+      service: wbd-soap-service
+    networks:
+      - wbd-2-network
+
+  wbd-soap-db:
+    extends:
+      file: ../WBD_SOAP_Service/docker-compose.yml
+      service: wbd-soap-db
+    networks:
+      - wbd-2-network
   
   wbd-adminer:
     container_name: wbd-adminer
@@ -42,11 +56,15 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+    networks:
+      - wbd-2-network
 
 networks:
   wbd-2-network:
     driver: bridge
 
 volumes:
-  dbdata:
+  wbd-rest-dbdata:
+    driver: local
+  wbd-soap-dbdata:
     driver: local
