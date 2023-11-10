@@ -62,9 +62,3 @@ services:
 networks:
   wbd-2-network:
     driver: bridge
-
-volumes:
-  wbd-rest-dbdata:
-    driver: local
-  wbd-soap-dbdata:
-    driver: local
